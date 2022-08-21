@@ -15,7 +15,8 @@ class BagViewModel(context: Context):ViewModel() {
     val bagList:LiveData<List<ProductModel>>
     get()=_bagList
 
-
+    private val _totalAmount = MutableLiveData(0.0)
+    val totalAmount: LiveData<Double> = _totalAmount
 
 
 
@@ -27,6 +28,10 @@ class BagViewModel(context: Context):ViewModel() {
     fun getBagProducts(user:String){
         bagRepo.getBagProducts(user)
         _bagList=bagRepo.bagProductList
+    }
+
+    fun increase(price:Double){
+        _totalAmount.value=_totalAmount.value?.plus(price)
     }
 
 

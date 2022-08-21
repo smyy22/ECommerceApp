@@ -44,7 +44,7 @@ class LoginFragment : Fragment() {
         }
 
         fragmentLoginBinding.backButton.setOnClickListener {
-            findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
+            findNavController().popBackStack()
         }
 
         fragmentLoginBinding.etloginButton.setOnClickListener {

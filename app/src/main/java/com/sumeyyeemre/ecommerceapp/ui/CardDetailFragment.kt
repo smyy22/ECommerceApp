@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -83,7 +84,7 @@ class CardDetailFragment : Fragment() {
                 )
             }
             backButton.setOnClickListener {
-                findNavController().navigate(R.id.action_cardDetailFragment_to_home)
+                findNavController().popBackStack()
             }
         }
     }

@@ -5,16 +5,19 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.get
 import androidx.databinding.DataBindingUtil
 import com.google.firebase.auth.FirebaseAuth
 import com.sumeyyeemre.ecommerceapp.R
 import com.sumeyyeemre.ecommerceapp.data.viewmodels.BagViewModel
+import com.sumeyyeemre.ecommerceapp.databinding.BagLayoutBinding
 import com.sumeyyeemre.ecommerceapp.databinding.FragmentBagBinding
 import com.sumeyyeemre.ecommerceapp.presentation.BagAdapter
 
 class BagFragment : Fragment() {
     private var _binding: FragmentBagBinding? = null
     private val binding get() = _binding!!
+
 
     private val viewModel by lazy { BagViewModel(requireContext()) }
     private val bagAdapter by lazy { BagAdapter() }
@@ -42,10 +45,10 @@ class BagFragment : Fragment() {
     private fun initBag() {
         with(binding) {
             with(viewModel) {
-
                 FirebaseAuth.getInstance().currentUser?.let {
                     getBagProducts(it.uid)
                 }
+
 
                 bagList.observe(viewLifecycleOwner) { list ->
                     recyclerViewBag.apply {
@@ -53,6 +56,12 @@ class BagFragment : Fragment() {
                         adapter = bagAdapter.also { adapter ->
                             //println(list)
                             adapter.bagupdateList(list)
+
+                            var sum: Double = 0.0
+                            list.forEach {
+                                sum +=it.price
+                            }
+                            totalPrice.text="$" + sum
                         }
                     }
                 }

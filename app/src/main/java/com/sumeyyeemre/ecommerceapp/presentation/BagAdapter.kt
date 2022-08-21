@@ -1,5 +1,6 @@
 package com.sumeyyeemre.ecommerceapp.presentation
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -9,6 +10,9 @@ import com.sumeyyeemre.ecommerceapp.databinding.BagLayoutBinding
 
 class BagAdapter():RecyclerView.Adapter<BagAdapter.BagViewHolder>() {
     private val bagList=ArrayList<ProductModel>()
+
+    //var plusfabClick: (Double) -> Unit = {}
+    //var decreasefabClick: (Double) -> Unit = {}
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BagViewHolder {
         val bagBinding=BagLayoutBinding.inflate(LayoutInflater.from(parent.context),parent,false)
@@ -30,6 +34,21 @@ class BagAdapter():RecyclerView.Adapter<BagAdapter.BagViewHolder>() {
                     Picasso.get().load(it).into(imageBag)
                 }
                 itembag=bagModel
+
+                var count=numbersOfProduct.text.toString().toInt()
+               plusfab.setOnClickListener {
+                    count++
+                    numbersOfProduct.text=count.toString()
+                    priceBag.text=((count*bagModel.price.toFloat()).toString()) + "$".toString()
+                }
+
+                minusfab.setOnClickListener {
+                    if(count!=1){
+                        count--
+                        numbersOfProduct.text = count.toString()
+                        priceBag.text = ((count * bagModel.price.toFloat()).toString()) + " ₺".toString()
+                    }
+                }
             }
         }
     }
